@@ -1,49 +1,27 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QRadioButton, QButtonGroup
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("My cool first GUI")
-        self.setGeometry(700, 250, 500, 500)
-        self.radio1 = QRadioButton("Visa", self)
-        self.radio2 = QRadioButton("Mastercard", self)
-        self.radio3 = QRadioButton("Gift Card", self)
-        self.radio4 = QRadioButton("In-Store", self)
-        self.radio5 = QRadioButton("Online", self)
-        self.button_group1 = QButtonGroup(self)
-        self.button_group2 = QButtonGroup(self)
+        self.setGeometry(700, 300, 500, 500)
+        self.line_edit = QLineEdit(self)
+        self.button = QPushButton("Submit", self)
         self.initUI()
 
     def initUI(self):
-        self.radio1.setGeometry(0, 0, 300, 50)
-        self.radio2.setGeometry(0, 50, 300, 50)
-        self.radio3.setGeometry(0, 100, 300, 50)
-        self.radio4.setGeometry(0, 150, 300, 50)
-        self.radio5.setGeometry(0, 200, 300, 50)
+        self.line_edit.setGeometry(10, 10, 200, 40)
+        self.button.setGeometry(210, 10, 100, 40)
+        self.line_edit.setStyleSheet("font-size: 25px;"
+                                    "font-family: Arial")
+        self.button.setStyleSheet("font-size: 25px;"
+                                "font-family: Arial")
+        self.line_edit.setPlaceholderText("Enter your name")
+        self.button.clicked.connect(self.submit)
 
-        self.setStyleSheet("QRadioButton{"
-                        "font-size: 40px;"
-                        "font-family: Arial;"
-                        "padding: 10px;"
-                        "}")
-
-        self.button_group1.addButton(self.radio1)
-        self.button_group1.addButton(self.radio2)
-        self.button_group1.addButton(self.radio3)
-        self.button_group2.addButton(self.radio4)
-        self.button_group2.addButton(self.radio5)
-
-        self.radio1.toggled.connect(self.radio_button_changed)
-        self.radio2.toggled.connect(self.radio_button_changed)
-        self.radio3.toggled.connect(self.radio_button_changed)
-        self.radio4.toggled.connect(self.radio_button_changed)
-        self.radio5.toggled.connect(self.radio_button_changed)
-
-    def radio_button_changed(self):
-        radio_button = self.sender()
-        if radio_button.isChecked():
-            print(f"{radio_button.text()} is selected")
+    def submit(self):
+        text = self.line_edit.text()
+        print(f"Hello {text}")
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
