@@ -1,27 +1,58 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QHBoxLayout
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setGeometry(700, 300, 500, 500)
-        self.line_edit = QLineEdit(self)
-        self.button = QPushButton("Submit", self)
+        self.button1 = QPushButton("#1")
+        self.button2 = QPushButton("#2")
+        self.button3 = QPushButton("#3")
         self.initUI()
 
     def initUI(self):
-        self.line_edit.setGeometry(10, 10, 200, 40)
-        self.button.setGeometry(210, 10, 100, 40)
-        self.line_edit.setStyleSheet("font-size: 25px;"
-                                    "font-family: Arial")
-        self.button.setStyleSheet("font-size: 25px;"
-                                "font-family: Arial")
-        self.line_edit.setPlaceholderText("Enter your name")
-        self.button.clicked.connect(self.submit)
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
 
-    def submit(self):
-        text = self.line_edit.text()
-        print(f"Hello {text}")
+        hbox = QHBoxLayout()
+
+        hbox.addWidget(self.button1)
+        hbox.addWidget(self.button2)
+        hbox.addWidget(self.button3)
+
+        central_widget.setLayout(hbox)
+
+        self.button1.setObjectName("button1")
+        self.button2.setObjectName("button2")
+        self.button3.setObjectName("button3")
+
+        self.setStyleSheet("""
+            QPushButton{
+                font-size: 40px;
+                font-family: Arial;
+                padding: 15px 75px;
+                margin: 25px;
+                border: 3px solid;
+                border-radius: 15px;
+            }
+            QPushButton#button1{
+                background-color: hsl(0, 100%, 64%);
+            }
+            QPushButton#button2{
+                background-color: hsl(122, 100%, 64%);
+            }
+            QPushButton#button3{
+                background-color: hsl(204, 100%, 64%);
+            }
+            QPushButton#button1:hover{
+                background-color: hsl(0, 100%, 84%);
+            }
+            QPushButton#button2:hover{
+                background-color: hsl(122, 100%, 84%);
+            }
+            QPushButton#button3:hover{
+                background-color: hsl(204, 100%, 84%);
+            }
+        """)
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
